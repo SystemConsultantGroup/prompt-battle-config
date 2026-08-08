@@ -16,6 +16,10 @@ spec:
       - image: stringju/scg-prompt-battle-prod
         imagePullPolicy: Always
         name: prompt-battle
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
         envFrom:
         - secretRef:
             name: prompt-battle-secret
