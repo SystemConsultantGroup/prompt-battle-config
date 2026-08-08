@@ -8,4 +8,4 @@ resources:
 - ingress.yaml
 images:
 - name: stringju/scg-prompt-battle-prod
-  newTag: latest
+  newTag: v2
