@@ -5,6 +5,7 @@ resources:
 - namespace.yaml
 - secret.yaml
 - deployment.yaml
+- ingress.yaml
 images:
 - name: stringju/scg-prompt-battle-prod
   newTag: latest

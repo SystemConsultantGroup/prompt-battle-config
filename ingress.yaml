@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prompt-battle-ingress
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    cert-manager.io/cluster-issuer: 'letsencrypt-clusterissuer'
+    nginx.ingress.kubernetes.io/proxy-body-size: "2g"
+  
+spec:
+  tls:
+    - hosts:
+        - promptbattle.scg.sh
+      secretName: gitops-tls
+  rules:
+    - host: promptbattle.scg.sh
+      http:
+        paths:
+          - backend:
+              service:
+                name: prompt-battle-service
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
