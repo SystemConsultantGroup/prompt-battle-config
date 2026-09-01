@@ -12,6 +12,21 @@ spec:
       labels:
         app.kubernetes.io/name: prompt-battle
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      initContainers:
+      - name: seed-db
+        image: stringju/scg-prompt-battle-prod
+        imagePullPolicy: Always
+        command:
+        - /bin/sh
+        - -c
+        - test -f /data/app.sqlite || cp /app/data/app.sqlite /data/app.sqlite
+        volumeMounts:
+        - name: data
+          mountPath: /data
       containers:
       - image: stringju/scg-prompt-battle-prod
         imagePullPolicy: Always
@@ -23,3 +38,10 @@ spec:
         envFrom:
         - secretRef:
             name: prompt-battle-secret
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: prompt-battle-data
