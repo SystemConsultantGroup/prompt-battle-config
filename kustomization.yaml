@@ -10,4 +10,4 @@ resources:
 - pvc.yaml
 images:
 - name: stringju/scg-prompt-battle-prod
-  newTag: v3
+  newTag: v4
